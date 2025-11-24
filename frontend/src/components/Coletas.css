@@ -1,0 +1,345 @@
+/* =============================
+   CONTAINER PRINCIPAL
+   ============================= */
+.list-container,
+.route-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* =============================
+   LISTA DE COLETAS
+   ============================= */
+.list-container h2 {
+  color: #2c3e50;
+  font-size: 1.8rem;
+  margin-bottom: 25px;
+  font-weight: 700;
+}
+
+.coleta-card {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  padding: 20px;
+  margin-bottom: 16px;
+  transition: all 0.3s ease;
+  border: 1px solid #e9ecef;
+}
+
+.coleta-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+}
+
+.card-content h3 {
+  color: #2c3e50;
+  font-size: 1.3rem;
+  margin: 0 0 8px 0;
+  font-weight: 600;
+}
+
+.card-content .address {
+  color: #6c757d;
+  font-size: 0.95rem;
+  margin: 0 0 12px 0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.card-content .address::before {
+  content: "📍";
+  font-size: 1rem;
+}
+
+.material-info {
+  background: #f8f9fa;
+  color: #495057;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  display: inline-block;
+  margin-bottom: 16px;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(40, 167, 69, 0.25);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(40, 167, 69, 0.35);
+  background: linear-gradient(135deg, #218838 0%, #1ab386 100%);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+/* =============================
+   TELA DE ROTAS
+   ============================= */
+.route-container h2 {
+  color: #2c3e50;
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* CARD DE RESUMO DA ROTA */
+.route-card {
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e9ecef;
+  margin-bottom: 20px;
+}
+
+/* LEGENDA */
+.legend {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  margin-bottom: 20px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid #e9ecef;
+}
+
+.legend span {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #495057;
+}
+
+.marker {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 3px solid white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.marker.origin {
+  background: #28a745;
+}
+
+.marker.dest {
+  background: #fd7e14;
+}
+
+/* RESUMO DE DISTÂNCIA E TEMPO */
+.summary {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.summary .item {
+  background: white;
+  padding: 16px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #2c3e50;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  border: 1px solid #e9ecef;
+}
+
+.summary .item svg {
+  font-size: 1.3rem;
+  color: #28a745;
+}
+
+/* MAPA */
+.leaflet-container {
+  border: 2px solid #e9ecef;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+/* BOTÕES DE AÇÃO */
+.action-button {
+  width: 100%;
+  padding: 16px 24px;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.action-button svg {
+  font-size: 1.3rem;
+}
+
+.primary-action {
+  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+  color: white;
+}
+
+.primary-action:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 24px rgba(0, 123, 255, 0.4);
+  background: linear-gradient(135deg, #0069d9 0%, #004085 100%);
+}
+
+.success-action {
+  background: linear-gradient(135deg, #28a745 0%, #1e7e34 100%);
+  color: white;
+}
+
+.success-action:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 24px rgba(40, 167, 69, 0.4);
+  background: linear-gradient(135deg, #218838 0%, #155724 100%);
+}
+
+.action-button:active {
+  transform: translateY(0);
+}
+
+/* =============================
+   RESPONSIVIDADE
+   ============================= */
+@media (max-width: 768px) {
+  .list-container,
+  .route-container {
+    padding: 16px;
+  }
+
+  .list-container h2,
+  .route-container h2 {
+    font-size: 1.5rem;
+  }
+
+  .legend {
+    gap: 16px;
+  }
+
+  .summary {
+    grid-template-columns: 1fr;
+  }
+
+  .action-button {
+    font-size: 1rem;
+    padding: 14px 20px;
+  }
+}
+
+/* =============================
+   LOADING STATE
+   ============================= */
+.list-container > h2 + p {
+  text-align: center;
+  color: #6c757d;
+  font-size: 1.1rem;
+  margin-top: 40px;
+}
+
+/* Mapa SEM ficar por cima dos botões */
+.leaflet-container {
+  z-index: 1 !important;
+  position: relative !important;
+}
+
+/* Qualquer coisa da routing-machine também fica atrás */
+.leaflet-routing-container,
+.leaflet-routing-geocoder {
+  z-index: 1 !important;
+}
+
+/* Os botões ficam na frente */
+.action-button,
+.primary-action,
+.success-action {
+  position: relative;
+  z-index: 5000 !important;
+}
+
+/* Remove interação do container do Leaflet Routing Machine */
+.leaflet-routing-container {
+  display: none !important;
+  pointer-events: none !important;
+  z-index: 0 !important;
+}
+
+/* Força o mapa a ficar atrás dos botões */
+.leaflet-container {
+  z-index: 1 !important;
+}
+
+.route-container button {
+  position: relative;
+  z-index: 9999 !important;
+}
+
+/* Remove qualquer overlay do Leaflet Routing Machine */
+.leaflet-routing-container,
+.leaflet-routing-container * {
+  display: none !important;
+  pointer-events: none !important;
+  z-index: 0 !important;
+}
+
+/* Contêineres auxiliares invisíveis */
+.leaflet-top,
+.leaflet-bottom,
+.leaflet-control {
+  pointer-events: none !important;
+}
+
+/* Botão sempre clicável */
+.action-button {
+  position: relative;
+  z-index: 999999 !important;
+  pointer-events: auto !important;
+}
+
+.danger-action {
+  background-color: #d9534f !important;
+  color: white !important;
+  padding: 14px;
+  border-radius: 10px;
+  width: 100%;
+  margin-top: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+}
+
+.danger-action:hover {
+  background-color: #c9302c !important;
+}

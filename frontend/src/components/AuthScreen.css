@@ -1,0 +1,212 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+/* --- Reset e Estilo Global --- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+}
+
+.login-page-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #59F3A4, #00F275); /* Um gradiente de fundo suave */
+  background-color: #32ff7e; /* Cor de fundo principal, caso gradiente falhe */
+}
+
+.login-card {
+  display: flex;
+  width: 100%;
+  max-width: 900px;
+  min-height: 550px;
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+  overflow: hidden; /* Garante que os painéis fiquem dentro das bordas arredondadas */
+}
+
+/* --- Painel Esquerdo (Verde) --- */
+.left-panel {
+  flex: 1;
+  background: #2ecc71; /* Verde vibrante do design */
+  color: #fff;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.logo-section {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.logo-icon {
+  font-size: 40px;
+  margin-right: 15px;
+}
+
+.left-panel h1 {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.left-panel h2 {
+  font-size: 24px;
+  margin-top: 50px;
+  font-weight: 600;
+}
+
+.left-panel p {
+  font-size: 16px;
+  margin-top: 10px;
+  line-height: 1.5;
+}
+
+/* --- Painel Direito (Formulário) --- */
+.right-panel {
+  flex: 1.2;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.right-panel h3 {
+  color: #2ecc71;
+  font-size: 22px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.input-group {
+  display: flex;
+  align-items: center;
+  background-color: #f2f2f2;
+  border-radius: 10px;
+  padding: 10px 15px;
+  margin-bottom: 20px;
+}
+
+.input-icon {
+  color: #aaa;
+  font-size: 18px;
+  margin-right: 10px;
+}
+
+.input-group input {
+  border: none;
+  background: none;
+  outline: none;
+  width: 100%;
+  font-size: 16px;
+  font-family: 'Poppins', sans-serif;
+}
+
+.input-group input::placeholder {
+  color: #aaa;
+}
+
+.forgot-password {
+  display: block;
+  text-align: right;
+  margin-top: -10px;
+  margin-bottom: 25px;
+  font-size: 13px;
+  color: #999;
+  text-decoration: none;
+}
+
+.login-btn {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 10px;
+  background-color: #2ecc71;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(46, 204, 113, 0.4);
+  transition: all 0.2s ease-in-out;
+}
+
+.login-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(46, 204, 113, 0.5);
+}
+
+.register-link {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 16px;
+  color: #555;
+}
+
+.register-link a {
+  color: #2ecc71;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+/* --- Estilização customizada para o SELECT --- */
+
+.input-group select {
+  /* Remove a aparência padrão do navegador */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+
+  /* Estilos para combinar com os inputs */
+  border: none;
+  background: none;
+  outline: none;
+  width: 100%;
+  font-size: 16px;
+  font-family: 'Poppins', sans-serif;
+  color: #555; /* Cor do texto selecionado */
+  cursor: pointer;
+}
+
+.input-group {
+  /* Adiciona o espaço para a seta customizada */
+  position: relative;
+}
+
+/* Desenha a nossa própria seta com CSS */
+.input-group::after {
+  content: '▼';
+  font-size: 12px;
+  color: #aaa;
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none; /* Garante que o clique passe para o select */
+}
+
+/* --- Estilo para a Descrição do Usuário --- */
+.user-description {
+  background-color: #f8f9fa;
+  border-left: 4px solid #28a745;
+  padding: 10px 15px;
+  margin-top: -10px; /* Puxa para mais perto do select */
+  margin-bottom: 20px;
+  border-radius: 4px;
+  text-align: left;
+}
+
+.user-description p {
+  color: #6c757d;
+  font-size: 14px;
+  line-height: 1.4;
+}

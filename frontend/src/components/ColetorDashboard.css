@@ -1,0 +1,101 @@
+/* Estilos para o ColetorDashboard */
+.coletor-dashboard-container {
+    padding: 20px;
+    background-color: #f5f7fa;
+    min-height: 100vh;
+}
+
+.coletor-dashboard-container h1 {
+    color: #2c3e50;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Estilos das Abas (Tabs) */
+.tabs-container {
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    margin-top: 20px;
+}
+
+.tab-buttons {
+    display: flex;
+    border-bottom: 2px solid #ecf0f1;
+}
+
+.tab-button {
+    flex-grow: 1;
+    padding: 15px 0;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #95a5a6;
+    transition: all 0.3s ease;
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
+}
+
+.tab-button:hover {
+    color: #3498db;
+}
+
+.tab-button.active {
+    color: #3498db;
+    border-bottom: 4px solid #3498db;
+}
+
+.tab-content {
+    padding: 30px;
+}
+
+/* Estilos para o Histórico de Entregas */
+
+.entrega-card {
+    background-color: #ecf0f1;
+    border-radius: 6px;
+    padding: 15px;
+    border-left: 5px solid #2ecc71;
+    /* Cor para indicar sucesso/entrega */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    margin-bottom: 16px;
+    /* Espaçamento entre cartões */
+}
+
+.entrega-card h3 {
+    margin-top: 0;
+    color: #2ecc71;
+    font-size: 1.1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.entrega-card p {
+    margin: 5px 0;
+    color: #34495e;
+    font-size: 0.95rem;
+}
+
+.entrega-card strong {
+    color: #2c3e50;
+    font-weight: 700;
+}
+
+.entrega-card:last-child {
+    margin-bottom: 0;
+}
+
+/* Espaçamento apenas para listas (bullets) dentro de cartões de entrega */
+.entrega-card ul {
+    padding-left: 1.25rem;
+    /* espaço antes do bullet */
+    margin: 0 0 8px 0;
+    list-style-position: outside;
+}
+
+.entrega-card ul li {
+    margin-bottom: 6px;
+}

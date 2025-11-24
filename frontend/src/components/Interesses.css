@@ -1,0 +1,139 @@
+.interesses-container {
+  background: #fff;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+}
+
+.interesses-container h1 {
+  color: #2c3e50;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.interesses-container p {
+  color: #555;
+  font-size: 1.1rem;
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+/* --- Formulário de Adicionar --- */
+.add-interesse-form {
+  background-color: #f8f9fa;
+  padding: 25px;
+  border-radius: 10px;
+  margin-bottom: 40px;
+  border: 1px solid #eee;
+}
+
+.add-interesse-form h3 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.form-row {
+  display: flex;
+  align-items: flex-end; /* Alinha o botão com os inputs */
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.form-row .form-group {
+  flex: 1; /* Faz os inputs ocuparem espaço */
+  min-width: 200px; /* Largura mínima antes de quebrar */
+}
+
+.form-row label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: #555;
+  font-size: 0.9rem;
+}
+
+.form-row select,
+.form-row input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+.add-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  background-color: #007bff;
+  color: white;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  height: 42px; /* Alinha com os inputs */
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.add-button:hover { background-color: #0056b3; }
+
+/* --- Lista de Interesses Atuais --- */
+.lista-interesses {
+  margin-bottom: 30px;
+}
+
+.lista-interesses h3 {
+  margin-bottom: 20px;
+  color: #333;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+}
+
+.interesse-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #eee;
+}
+
+.categoria-nome {
+  font-weight: 600;
+  color: #2c3e50;
+  flex-basis: 30%;
+}
+
+.categoria-preco {
+  color: #28a745;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-basis: 40%;
+}
+.categoria-preco svg { font-size: 0.9em; }
+
+.remove-button {
+  background: none;
+  border: 1px solid #f8d7da;
+  color: #721c24;
+  padding: 5px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.9rem;
+}
+.remove-button:hover { background-color: #f8d7da; }
+
+.save-button {
+    width: 100%;
+    max-width: 300px;
+    display: block;
+    margin: 40px auto 0 auto; /* Centraliza o botão */
+}

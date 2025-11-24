@@ -1,0 +1,43 @@
+# .github/workflows/django-ci.yml
+
+name: Django CI/CD
+
+# Define quando o workflow deve rodar
+on:
+  push:
+    branches: [ "main", "dev" ] # Roda em pushes para 'main' e 'dev'
+  pull_request:
+    branches: [ "main", "dev" ] # Roda em pull requests para 'main' e 'dev'
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11"]
+
+    steps:
+    - name: Check out repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+
+    - name: Install Linting Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install flake8
+
+    - name: Lint with Flake8
+      run: |
+        # Roda o flake8 na pasta do backend
+        # --count: mostra o total de erros
+        # --show-source: mostra a linha do código com erro
+        # --statistics: mostra estatísticas
+        # --select=E9,F63,F7,F82: foca apenas em erros graves (sintaxe, imports quebrados)
+        flake8 ./backend/src --count --select=E9,F63,F7,F82 --show-source --statistics
+
+        # (Opcional) Roda o flake8 para erros de estilo, mas não falha o build
+        # flake8 ./backend/src --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics

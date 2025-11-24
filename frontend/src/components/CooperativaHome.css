@@ -1,0 +1,370 @@
+/* CooperativaHome.css */
+.coop-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.coop-header {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.coop-header h1 {
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+
+.coop-header p {
+  color: #7f8c8d;
+  font-size: 1.1rem;
+}
+
+/* Lista de Cards */
+.entregas-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.entrega-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  border: 1px solid #e9ecef;
+  overflow: hidden;
+  transition: transform 0.2s;
+}
+
+.entrega-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+}
+
+/* Cabeçalho do Card */
+.card-header {
+  background: #f8f9fa;
+  padding: 15px 20px;
+  border-bottom: 1px solid #e9ecef;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.status-badge {
+  background: #ffc107;
+  color: #856404;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.time-badge {
+  color: #6c757d;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Corpo do Card */
+.card-body {
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+@media (max-width: 768px) {
+  .card-body {
+    grid-template-columns: 1fr;
+  }
+}
+
+.info-section h4 {
+  color: #2c3e50;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1rem;
+}
+
+.info-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 8px;
+  color: #555;
+  font-size: 0.95rem;
+}
+
+.info-row svg {
+  color: #28a745;
+  margin-top: 3px;
+}
+
+/* Itens */
+.itens-list {
+  margin-top: 15px;
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.item-tag {
+  display: inline-block;
+  background: #e8f5e9;
+  color: #2e7d32;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  margin-right: 8px;
+  margin-bottom: 8px;
+  font-weight: 500;
+  border: 1px solid #c8e6c9;
+}
+
+/* Ações */
+.card-actions {
+  padding: 20px;
+  border-top: 1px solid #e9ecef;
+  text-align: right;
+  background: #fff;
+}
+
+.btn-confirmar {
+  background: linear-gradient(135deg, #28a745 0%, #218838 100%);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s;
+}
+
+.btn-confirmar:hover {
+  background: linear-gradient(135deg, #218838 0%, #1e7e34 100%);
+  box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+  transform: translateY(-1px);
+}
+
+.empty-state {
+  text-align: center;
+  padding: 50px;
+  background: #f8f9fa;
+  border-radius: 12px;
+  color: #6c757d;
+}
+
+/* CooperativaHome.css */
+.coop-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.coop-header {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.coop-header h1 {
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+
+.coop-header p {
+  color: #7f8c8d;
+  font-size: 1.1rem;
+}
+
+/* Lista de Cards */
+.entregas-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.entrega-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  border: 1px solid #e9ecef;
+  overflow: hidden;
+  transition: transform 0.2s;
+}
+
+.entrega-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+}
+
+/* Cabeçalho do Card */
+.card-header {
+  background: #f8f9fa;
+  padding: 15px 20px;
+  border-bottom: 1px solid #e9ecef;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.status-badge {
+  background: #ffc107;
+  color: #856404;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.time-badge {
+  color: #6c757d;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* Corpo do Card */
+.card-body {
+  padding: 20px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+@media (max-width: 768px) {
+  .card-body {
+    grid-template-columns: 1fr;
+  }
+}
+
+.info-section h4 {
+  color: #2c3e50;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1rem;
+}
+
+.info-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 8px;
+  color: #555;
+  font-size: 0.95rem;
+}
+
+.info-row svg {
+  color: #28a745;
+  margin-top: 3px;
+}
+
+/* Itens */
+.itens-list {
+  margin-top: 15px;
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.item-tag {
+  display: inline-block;
+  background: #e8f5e9;
+  color: #2e7d32;
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  margin-right: 8px;
+  margin-bottom: 8px;
+  font-weight: 500;
+  border: 1px solid #c8e6c9;
+}
+
+/* Ações */
+.card-actions {
+  padding: 20px;
+  border-top: 1px solid #e9ecef;
+  text-align: right;
+  background: #fff;
+}
+
+.btn-confirmar {
+  background: linear-gradient(135deg, #28a745 0%, #218838 100%);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s;
+}
+
+.btn-confirmar:hover {
+  background: linear-gradient(135deg, #218838 0%, #1e7e34 100%);
+  box-shadow: 0 4px 12px rgba(40, 167, 69, 0.3);
+  transform: translateY(-1px);
+}
+
+.empty-state {
+  text-align: center;
+  padding: 50px;
+  background: #f8f9fa;
+  border-radius: 12px;
+  color: #6c757d;
+}
+
+/* --- ESTILOS NOVOS PARA ABAS (TABS) --- */
+.tabs-nav {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-bottom: 30px;
+  border-bottom: 2px solid #e9ecef;
+  padding-bottom: 10px;
+}
+
+.tab-btn {
+  background: none;
+  border: none;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #6c757d;
+  padding: 10px 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+
+.tab-btn:hover {
+  background-color: #f1f3f5;
+  color: #2c3e50;
+}
+
+.tab-btn.active {
+  background-color: #e8f5e9;
+  color: #28a745;
+}

@@ -1,0 +1,471 @@
+.inventario-container {
+      background: #fff;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+    }
+
+    .inventario-container h1 {
+      color: #2c3e50;
+      margin-bottom: 10px;
+      text-align: center;
+    }
+
+    .inventario-container p {
+      color: #555;
+      font-size: 1.1rem;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .inventario-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    .inventario-table th,
+    .inventario-table td {
+      border-bottom: 1px solid #eee;
+      padding: 15px 10px;
+      text-align: left;
+      vertical-align: middle;
+    }
+
+    .inventario-table th {
+      background-color: #f8f9fa;
+      color: #555;
+      font-weight: 600;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+    }
+
+    .inventario-table td {
+      color: #333;
+      font-size: 1rem;
+    }
+
+    .table-footer-total {
+      border-top: 2px solid #333;
+      background-color: #f8f9fa;
+      font-weight: 700;
+    }
+    
+    .table-footer-total .total-value {
+      font-size: 1.2rem;
+      color: #28a745;
+    }
+    
+    /* --- Seção de Entrega --- */
+    .entrega-section {
+      margin-top: 40px;
+      padding-top: 30px;
+      border-top: 1px solid #eee;
+    }
+
+    .entrega-section h3 {
+      color: #2c3e50;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    
+    .entrega-form {
+      max-width: 500px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    
+    .entrega-form label {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: 500;
+      color: #555;
+      margin-bottom: 10px;
+    }
+    
+    .entrega-form select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 16px;
+      font-family: 'Poppins', sans-serif;
+    }
+    
+    .confirm-entrega-btn {
+      padding: 14px 30px;
+      border: none;
+      border-radius: 8px;
+      background-color: #ffc107; /* Amarelo para ação de "entregar" */
+      color: #333;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: background-color 0.2s;
+    }
+    .confirm-entrega-btn:hover {
+      background-color: #e0a800;
+    }
+    
+    .inventario-container {
+  background: #fff;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.inventario-container h1 {
+  color: #2c3e50;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.inventario-container p {
+  color: #555;
+  font-size: 1.1rem;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* --- Novo Card de Seleção de Cooperativa --- */
+.coop-selector-card {
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 10px;
+  border: 1px solid #e9ecef;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.coop-selector-card label {
+  font-weight: 700;
+  color: #2c3e50;
+  display: block;
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.coop-selector-card select {
+  padding: 10px 15px;
+  border-radius: 6px;
+  border: 1px solid #ced4da;
+  font-size: 1rem;
+  color: #495057;
+  width: 100%;
+  max-width: 400px;
+  cursor: pointer;
+}
+
+.coop-info-text {
+  font-size: 0.9rem !important;
+  color: #6c757d !important;
+  margin-top: 10px !important;
+  margin-bottom: 0 !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* --- Tabela --- */
+.inventario-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+.inventario-table th,
+.inventario-table td {
+  border-bottom: 1px solid #eee;
+  padding: 15px 15px;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.inventario-table th {
+  background-color: #f1f3f5;
+  color: #495057;
+  font-weight: 700;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.inventario-table td {
+  color: #333;
+  font-size: 1rem;
+}
+
+/* Botão Individual de Entrega */
+.btn-entregar-item {
+  background-color: #fff;
+  border: 1px solid #28a745;
+  color: #28a745;
+  padding: 6px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn-entregar-item:hover {
+  background-color: #28a745;
+  color: #fff;
+}
+
+/* Footer de Total */
+.table-footer-total {
+  background-color: #f8f9fa;
+  border-top: 2px solid #dee2e6;
+}
+
+.table-footer-total td {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #2c3e50;
+}
+
+.table-footer-total .total-value {
+  color: #28a745;
+  font-size: 1.3rem;
+}
+
+.btn-entregar-item {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-entregar-item:hover {
+  background-color: #218838;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3);
+}
+
+.btn-entregar-item:active {
+  transform: translateY(0);
+}
+
+/* =============================
+   CONTAINER PRINCIPAL
+   ============================= */
+.inventario-container {
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: #f5f7fa;
+    min-height: 100vh;
+}
+
+.inventario-container h1 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.inventario-container > p {
+    text-align: center;
+    color: #6c757d;
+    margin-bottom: 30px;
+}
+
+/* =============================
+   SELETOR DE COOPERATIVA
+   ============================= */
+.coop-selector-card {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.coop-selector-card label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 12px;
+}
+
+.select-wrapper {
+    margin-bottom: 12px;
+}
+
+.select-wrapper select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 2px solid #e9ecef;
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: white;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.select-wrapper select:hover {
+    border-color: #28a745;
+}
+
+.select-wrapper select:focus {
+    outline: none;
+    border-color: #28a745;
+    box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.1);
+}
+
+.coop-info-text {
+    color: #6c757d;
+    font-size: 0.9rem;
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+/* =============================
+   TABELA DE INVENTÁRIO
+   ============================= */
+.inventario-table {
+    width: 100%;
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    border-collapse: collapse;
+}
+
+.inventario-table thead {
+    background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+    color: white;
+}
+
+.inventario-table th {
+    padding: 16px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.inventario-table tbody tr {
+    border-bottom: 1px solid #e9ecef;
+    transition: background-color 0.2s ease;
+}
+
+.inventario-table tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+.inventario-table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.inventario-table td {
+    padding: 16px;
+    font-size: 0.95rem;
+}
+
+/* =============================
+   BOTÃO ENTREGAR ITEM (OBRIGATÓRIO PARA TESTES)
+   ============================= */
+.btn-entregar-item {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    margin: 0 auto; /* Centraliza o botão */
+}
+
+.btn-entregar-item:hover {
+    background-color: #218838;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3);
+}
+
+.btn-entregar-item:active {
+    transform: translateY(0);
+}
+
+/* =============================
+   RODAPÉ DA TABELA (TOTAL)
+   ============================= */
+.table-footer-total {
+    background-color: #f8f9fa;
+    font-weight: bold;
+}
+
+.table-footer-total td {
+    padding: 20px 16px;
+    font-size: 1.1rem;
+}
+
+.total-value {
+    color: #28a745;
+    font-size: 1.3rem !important;
+}
+
+/* =============================
+   ESTADO VAZIO
+   ============================= */
+.inventario-table tbody tr td[colspan="4"] {
+    padding: 40px 20px;
+}
+
+/* =============================
+   RESPONSIVIDADE
+   ============================= */
+@media (max-width: 768px) {
+    .inventario-container {
+        padding: 16px;
+    }
+
+    .inventario-table {
+        font-size: 0.85rem;
+    }
+
+    .inventario-table th,
+    .inventario-table td {
+        padding: 12px 8px;
+    }
+
+    .btn-entregar-item {
+        padding: 6px 12px;
+        font-size: 0.85rem;
+    }
+
+    .total-value {
+        font-size: 1.1rem !important;
+    }
+}

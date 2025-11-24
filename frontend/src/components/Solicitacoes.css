@@ -1,0 +1,91 @@
+.solicitacoes-container {
+  background: #fff;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+}
+
+.solicitacoes-container h1 {
+  color: #2c3e50;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.solicitacoes-container p {
+  color: #555;
+  font-size: 1.1rem;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.solicitacoes-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+.solicitacoes-table th,
+.solicitacoes-table td {
+  border-bottom: 1px solid #eee;
+  padding: 15px 10px;
+  text-align: left;
+  vertical-align: middle;
+}
+
+.solicitacoes-table th {
+  background-color: #f8f9fa;
+  color: #555;
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+}
+
+.solicitacoes-table td {
+  color: #333;
+  font-size: 0.95rem;
+}
+
+/* Estilos para os Badges de Status */
+.status-badge {
+  padding: 5px 10px;
+  border-radius: 15px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.status-coletado { background-color: #d4edda; color: #155724; }
+.status-aguardando-coletor { background-color: #fff3cd; color: #856404; }
+.status-em-rota { background-color: #cce5ff; color: #004085; }
+.status-cancelado { background-color: #f8d7da; color: #721c24; }
+
+/* Estilos para Botões de Ação na Tabela */
+.action-button {
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+  margin-right: 5px;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+/* Estilo para o botão de confirmar entrega */
+.confirm-button {
+  background-color: #d4edda;
+  color: #155724;
+  font-weight: 600;
+}
+.confirm-button:hover {
+  background-color: #c3e6cb;
+}
+.confirm-button svg {
+  margin-right: 8px;
+}
+
+.details-button { background-color: #e2e6ea; color: #343a40; }
+.details-button:hover { background-color: #d3d9df; }
+.cancel-button { background-color: #f8d7da; color: #721c24; }
+.cancel-button:hover { background-color: #f1b0b7; }

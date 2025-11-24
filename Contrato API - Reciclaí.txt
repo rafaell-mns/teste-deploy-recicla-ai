@@ -1,0 +1,150 @@
+http://127.0.0.1:8000/api/
+
+1. Autenticação
+1.1 Login de Usuário
+
+Endpoint: /login/
+Método: POST
+Corpo da Requisição:
+{
+  "email": "joao.silva1@email.com",
+  "password": "senhaSegura123!"
+}
+
+Resposta de Sucesso (200 OK):
+{
+  "refresh": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2...",
+  "access": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2...",
+  "user_type": "produtor"
+}
+
+Resposta de Erro (401 Unauthorized):
+{
+  "detail": "Nenhuma conta ativa encontrada com as credenciais fornecidas."
+}
+---------------------------------------------------------------------------------
+2. Cadastro de Usuários
+2.1 Cadastro de Produtor
+Endpoint: http://127.0.0.1:8000/api/register/producer/
+
+Método: POST
+Descrição: Cria um novo usuário do tipo Produtor.
+Corpo da Requisição:
+
+{
+  "nome": "João Silva",
+  "email": "joao.silva1@email.com",
+  "senha": "senhaSegura123!",
+  "telefone": "86989998888",
+  "cpf": "12345678901",
+  "cep": "64000000",
+  "rua": "Avenida Principal",
+  "numero": "100",
+  "bairro": "Centro",
+  "cidade": "Teresina",
+  "estado": "PI"
+}
+Resposta de Sucesso (201 Created):
+{
+    "nome": "João da Silva",
+    "telefone": "86989998888",
+    "cpf": "12345678901",
+    "cep": "64000000",
+    "rua": "Avenida Principal",
+    "numero": "100",
+    "bairro": "Centro",
+    "cidade": "Teresina",
+    "estado": "PI"
+}
+Resposta de Erro (400 Bad Request):
+{
+  "email": [ "user with this email already exists." ],
+  "cpf": [ "produtor with this cpf already exists." ],
+  "rua": [ "This field is required." ]
+}
+2.2 Cadastro de Coletor
+Endpoint: http://127.0.0.1:8000/api/register/collector/
+Método: POST
+Descrição: Cria um novo usuário do tipo Coletor.
+Corpo da Requisição:
+{
+  "nome": "Maria Coletora",
+  "email": "maria.coletora1@email.com",
+  "senha": "outraSenhaForte456",
+  "telefone": "86998776655",
+  "cpf": "44455566777",
+  "cep": "64055123",
+  "cidade": "Teresina",
+  "estado": "PI"
+}
+Resposta de Sucesso (201 Created):
+{
+    "nome": "Maria Coletora",
+    "telefone": "86998776655",
+    "cpf": "44455566777",
+    "cep": "64055123",
+    "cidade": "Teresina",
+    "estado": "PI"
+}
+Resposta de Erro (400 Bad Request):
+{
+  "cpf": [ "coletor with this cpf already exists." ]
+}
+
+2.3 Cadastro de Cooperativa
+Endpoint: http://127.0.0.1:8000/api/register/cooperative/
+Método: POST
+Descrição: Cria um novo usuário do tipo Cooperativa.
+Corpo da Requisição:
+{
+  "nome_empresa": "Recicla Teresina Coop",
+  "email": "contato1@reciclateresina.com",
+  "senha": "senhaCooperativa789",
+  "telefone": "8632324544",
+  "cnpj": "11222333000444",
+  "cep": "64077456",
+  "rua": "Avenida Industrial",
+  "numero": "2050",
+  "bairro": "Distrito Industrial",
+  "cidade": "Teresina",
+  "estado": "PI"
+}
+Resposta de Sucesso (201 Created):
+{
+    "nome_empresa": "Recicla Teresina Coop",
+    "telefone": "8632324544",
+    "cnpj": "11222333000444",
+    "cep": "64077456",
+    "rua": "Avenida Industrial",
+    "numero": "2050",
+    "bairro": "Distrito Industrial",
+    "cidade": "Teresina",
+    "estado": "PI"
+}
+Resposta de Erro (400 Bad Request):
+{
+  "cnpj": [ "cooperativa with this cnpj already exists." ]
+}
+
+
+--------------------------------------------------------------------------
+Solicitar entrega:
+Tipo:post
+http://127.0.0.1:8000/api/coletas/solicitar/
+{
+  "inicio_coleta": "2025-10-25T09:00:00",
+  "fim_coleta": "2025-10-25T12:00:00",
+  "observacoes": "Deixar na portaria. Material frágil.",
+  "itens": [
+    { "nome_residuo": "5 Garrafas PET", "quantidade": 5 },
+    { "nome_residuo": "1 Caixa de Papelão Grande", "quantidade": 1 }
+  ]
+}
+
+---------------------------------------------------------------------------
+
+Minhas coletas:
+Tipo: get
+http://127.0.0.1:8000/api/coletas/minhas/
+corpo:none
+
