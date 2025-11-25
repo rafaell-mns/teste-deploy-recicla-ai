@@ -97,7 +97,7 @@ const ProdutorSolicitacoes = () => {
               solicitacoes.map(sol => (
                 <tr key={sol.id}>
                   <td>{sol.id}</td>
-                  <td>{formatDateTimeOffset(sol.solicitacao || sol.inicio_coleta || sol.fim_coleta || Date.now(), 3)}</td>
+                  <td>{formatDateTimeOffset(sol.solicitacao || sol.inicio_coleta || sol.fim_coleta || Date.now())}</td>
                   <td>
                     <span className={`status-badge status-${(sol.status || '').toString().toLowerCase().replace(' ', '-')}`}>
                       {sol.status_display || sol.status}
