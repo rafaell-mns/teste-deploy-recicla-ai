@@ -14,15 +14,15 @@ import { FaMapMarkerAlt, FaClock, FaCheck, FaTruck, FaRoute, FaSpinner, FaCheckC
 // ÍCONES CUSTOMIZADOS
 // =============================
 const iconOrigem = L.icon({
-  iconUrl: "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png",
-  shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
+  iconUrl: `${process.env.PUBLIC_URL}/markers/marker-icon-green.png`,
+  shadowUrl: `${process.env.PUBLIC_URL}/markers/marker-shadow.png`,
   iconSize: [25, 41],
   iconAnchor: [12, 41],
 });
 
 const iconDestino = L.icon({
-  iconUrl: "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-orange.png",
-  shadowUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png",
+  iconUrl: `${process.env.PUBLIC_URL}/markers/marker-icon-orange.png`,
+  shadowUrl: `${process.env.PUBLIC_URL}/markers/marker-shadow.png`,
   iconSize: [25, 41],
   iconAnchor: [12, 41],
 });
@@ -474,53 +474,53 @@ export default function ColetorHome() {
 
   // CONFIRMAR COLETA (Retirada)
   const confirmarColeta = async () => {
-      setModalProdutorAberto(true);
+    setModalProdutorAberto(true);
   };
 
-    // Função chamada quando o Coletor dá a nota e confirma no modal
+  // Função chamada quando o Coletor dá a nota e confirma no modal
   const handleAvaliarProdutor = async (nota: number) => {
     console.log(`Coletor avaliou produtor com nota: ${nota}`);
-    
+
     if (!selecionada || !selecionada.id) {
-        alert("Erro: Nenhuma coleta selecionada.");
-        return;
+      alert("Erro: Nenhuma coleta selecionada.");
+      return;
     }
 
     try {
-        // 1. Primeiro, atualizamos o status para 'CONFIRMADA' (Para permitir a avaliação no backend)
-        const responseStatus = await apiFetch.request(`/api/coletas/${selecionada.id}/status/`, 'PATCH', { status: 'CONFIRMADA' });
-        if (!responseStatus.ok) throw new Error("Erro ao confirmar coleta.");
+      // 1. Primeiro, atualizamos o status para 'CONFIRMADA' (Para permitir a avaliação no backend)
+      const responseStatus = await apiFetch.request(`/api/coletas/${selecionada.id}/status/`, 'PATCH', { status: 'CONFIRMADA' });
+      if (!responseStatus.ok) throw new Error("Erro ao confirmar coleta.");
 
-        // 2. Agora enviamos a avaliação
-        const payloadAvaliacao = {
-            coleta_id: selecionada.id,
-            nota: nota,
-            comentario: "" // Opcional, se quiser adicionar campo de texto no modal depois
-        };
+      // 2. Agora enviamos a avaliação
+      const payloadAvaliacao = {
+        coleta_id: selecionada.id,
+        nota: nota,
+        comentario: "" // Opcional, se quiser adicionar campo de texto no modal depois
+      };
 
-        const responseAvaliacao = await apiFetch.request('/api/avaliar/produtor/', 'POST', payloadAvaliacao);
-        
-        if (!responseAvaliacao.ok) {
-             const err = await responseAvaliacao.json();
-             console.warn("Erro ao salvar avaliação:", err);
-             alert("Coleta confirmada, mas houve um erro ao salvar a avaliação.");
-        } else {
-             alert("Coleta confirmada e avaliação enviada com sucesso!");
-        }
+      const responseAvaliacao = await apiFetch.request('/api/avaliar/produtor/', 'POST', payloadAvaliacao);
 
-        // 3. Segue o fluxo visual (Limpa mapa e avança)
-        const latP = parseFloat(selecionada.produtor.latitude);
-        const lngP = parseFloat(selecionada.produtor.longitude);
-        setPontoA(new LatLng(latP, lngP)); // Nova origem (onde estava o produtor)
-        setPontoB(null); 
-        setResumo(null);
-        
-        setModalProdutorAberto(false); // Fecha modal
-        setEtapa("SELECIONAR_COOPERATIVA"); // Avança para próxima etapa
+      if (!responseAvaliacao.ok) {
+        const err = await responseAvaliacao.json();
+        console.warn("Erro ao salvar avaliação:", err);
+        alert("Coleta confirmada, mas houve um erro ao salvar a avaliação.");
+      } else {
+        alert("Coleta confirmada e avaliação enviada com sucesso!");
+      }
+
+      // 3. Segue o fluxo visual (Limpa mapa e avança)
+      const latP = parseFloat(selecionada.produtor.latitude);
+      const lngP = parseFloat(selecionada.produtor.longitude);
+      setPontoA(new LatLng(latP, lngP)); // Nova origem (onde estava o produtor)
+      setPontoB(null);
+      setResumo(null);
+
+      setModalProdutorAberto(false); // Fecha modal
+      setEtapa("SELECIONAR_COOPERATIVA"); // Avança para próxima etapa
 
     } catch (e) {
-        console.error(e);
-        alert("Erro ao processar a confirmação da coleta.");
+      console.error(e);
+      alert("Erro ao processar a confirmação da coleta.");
     }
   };
 
@@ -772,12 +772,12 @@ export default function ColetorHome() {
           </>
         )}
       </div>
-      <ModalAvaliacao 
+      <ModalAvaliacao
         isOpen={modalProdutorAberto}
         titulo="Avaliar Produtor"
         subtitulo={`Como foi a coleta com ${selecionada?.produtor?.nome || 'o produtor'}?`}
         onConfirmar={handleAvaliarProdutor}
-        onFechar={() => setModalProdutorAberto(false)} 
+        onFechar={() => setModalProdutorAberto(false)}
       />
     </>
   );
