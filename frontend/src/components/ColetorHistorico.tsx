@@ -39,7 +39,6 @@ const ColetorHistorico: React.FC = () => {
                 const resp = await api.request('/api/coletas/minhas_coletor/');
                 if (!mounted) return;
                 if (!resp.ok) {
-
                     console.warn("API de histórico indisponível, usando lista vazia.");
                     setMinhasAceitas([]);
                     setLoading(false);
@@ -241,3 +240,5 @@ const ColetorHistorico: React.FC = () => {
         </div>
     );
 };
+
+export default ColetorHistorico;
