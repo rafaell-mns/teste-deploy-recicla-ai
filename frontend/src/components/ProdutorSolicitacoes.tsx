@@ -45,7 +45,7 @@ const ProdutorSolicitacoes = () => {
     if (!value) return '—';
     const d = new Date(value as any);
     if (isNaN(d.getTime())) return '—';
-    d.setHours(d.getHours() - hoursToSubtract);
+    d.setHours(d.getHours() + hoursToSubtract);
     const date = d.toLocaleDateString('pt-BR');
     const hours = d.getHours().toString().padStart(2, '0');
     const minutes = d.getMinutes().toString().padStart(2, '0');
