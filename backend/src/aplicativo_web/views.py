@@ -17,7 +17,7 @@ from .serializers import (
     ProdutorRegistrationSerializer, ColetorRegistrationSerializer,
     CooperativaRegistrationSerializer, LoginSerializer,
     SolicitacaoColetaCreateSerializer, SolicitacaoColetaListSerializer,
-    SolicitacaoColetaDetailSerializer
+    SolicitacaoColetaDetailSerializer, AvaliacaoColetorSerializer
 )
 from .serializers import CooperativaMaterialSerializer
 from .models import Produtor, Coletor, Cooperativa, SolicitacaoColeta
@@ -646,3 +646,156 @@ class ProdutorPerfilView(APIView):
             })
         except Produtor.DoesNotExist:
             return Response({'detail': 'Produtor não encontrado.'}, status=status.HTTP_404_NOT_FOUND)
+        
+
+class AvaliarColetorView(APIView):
+    """
+    Endpoint: POST /api/avaliar/coletor/
+    Segue o mesmo padrão de AvaliarProdutor: não usa autenticação aqui,
+    apenas valida a coleta e atualiza a média do coletor.
+    """
+
+    def post(self, request, *args, **kwargs):
+        serializer = AvaliacaoColetorSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+
+        return Response(
+            {"detail": "Avaliação do coletor registrada com sucesso."},
+            status=status.HTTP_200_OK,
+        )
+    
+class EntregasPendentesCooperativaView(generics.ListAPIView):
+    """
+    Lista as solicitações associadas à cooperativa autenticada
+    que estão aguardando confirmação da entrega (status = 'AGUARDANDO').
+    Usado pelo frontend na aba "Confirmar Entregas" da cooperativa.
+    """
+    serializer_class = SolicitacaoColetaDetailSerializer
+    permission_classes = [permissions.AllowAny]
+
+    def get_queryset(self):
+        from rest_framework_simplejwt.authentication import JWTAuthentication
+        try:
+            auth_payload = getattr(self.request, 'auth_payload', None)
+
+            # Tenta extrair o payload do token JWT, como no resto do código
+            if not auth_payload:
+                auth_header = self.request.headers.get('Authorization')
+                if auth_header and auth_header.startswith('Bearer '):
+                    raw_token = auth_header.split(' ')[1]
+                    jwt_auth = JWTAuthentication()
+                    try:
+                        validated = jwt_auth.get_validated_token(raw_token)
+                        auth_payload = getattr(validated, 'payload', None)
+                        if auth_payload:
+                            self.request.auth_payload = auth_payload
+                    except Exception:
+                        auth_payload = None
+
+            # Precisa ser cooperativa autenticada
+            if (
+                not auth_payload
+                or auth_payload.get('user_type') != 'cooperativa'
+                or 'user_id' not in auth_payload
+            ):
+                return SolicitacaoColeta.objects.none()
+
+            coop_id = auth_payload.get('user_id')
+
+            # Filtra coletas dessa cooperativa, em status AGUARDANDO
+            return (
+                SolicitacaoColeta.objects
+                .filter(cooperativa_id=coop_id, status='AGUARDANDO')
+                .select_related('coletor', 'produtor', 'cooperativa')
+                .order_by('-id')
+            )
+        except Exception as e:
+            print(f"Erro ao buscar entregas pendentes da cooperativa: {e}")
+            return SolicitacaoColeta.objects.none()
+
+class ProdutorPerfilView(APIView):
+    permission_classes = [IsProdutor]
+
+    def get(self, request):
+        try:
+            # Pega o ID do usuário logado (do token)
+            auth_payload = getattr(request, 'auth_payload', None)
+            if not auth_payload or 'user_id' not in auth_payload:
+                 return Response({'detail': 'Erro de autenticação.'}, status=status.HTTP_401_UNAUTHORIZED)
+
+            user_id = auth_payload.get('user_id')
+            produtor = Produtor.objects.get(pk=user_id)
+            
+            return Response({
+                "nome": produtor.nome,
+                "email": produtor.email,
+                "nota_avaliacao_atual": produtor.nota_avaliacao_atual,
+                "total_avaliacoes": produtor.total_avaliacoes,
+                "saldo_pontos": produtor.saldo_pontos
+            })
+        except Produtor.DoesNotExist:
+            return Response({'detail': 'Produtor não encontrado.'}, status=status.HTTP_404_NOT_FOUND)
+
+
+# --- NOVA View para o Coletor ver seu Perfil/Nota ---
+class ColetorPerfilView(APIView):
+    """
+    Retorna informações básicas e a nota média do Coletor autenticado.
+    Endpoint: GET /api/coletor/perfil/
+    """
+    permission_classes = [permissions.AllowAny]  # validação por token manualmente
+
+    def get(self, request):
+        try:
+            # Tenta recuperar payload já decodificado (middleware/permission)
+            auth_payload = getattr(request, 'auth_payload', None)
+
+            # Se não existir, tenta extrair do header Authorization
+            if not auth_payload:
+                auth_header = request.headers.get('Authorization')
+                if auth_header and auth_header.startswith('Bearer '):
+                    raw_token = auth_header.split(' ')[1]
+                    from rest_framework_simplejwt.authentication import JWTAuthentication
+                    jwt_auth = JWTAuthentication()
+                    try:
+                        validated = jwt_auth.get_validated_token(raw_token)
+                        auth_payload = getattr(validated, 'payload', None)
+                        if auth_payload:
+                            request.auth_payload = auth_payload
+                    except Exception:
+                        auth_payload = None
+
+            # Verifica se é um coletor autenticado
+            if (
+                not auth_payload
+                or auth_payload.get('user_type') != 'coletor'
+                or 'user_id' not in auth_payload
+            ):
+                return Response(
+                    {'detail': 'Autenticação de coletor necessária.'},
+                    status=status.HTTP_401_UNAUTHORIZED
+                )
+
+            user_id = auth_payload.get('user_id')
+
+            try:
+                coletor = Coletor.objects.get(pk=user_id)
+            except Coletor.DoesNotExist:
+                return Response(
+                    {'detail': 'Coletor não encontrado.'},
+                    status=status.HTTP_404_NOT_FOUND
+                )
+
+            return Response({
+                "nome": coletor.nome,
+                "email": coletor.email,
+                "nota_avaliacao_atual": coletor.nota_avaliacao_atual,
+                "total_avaliacoes": coletor.total_avaliacoes,
+            })
+
+        except Exception as e:
+            return Response(
+                {'detail': f'Erro inesperado: {e}'},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )

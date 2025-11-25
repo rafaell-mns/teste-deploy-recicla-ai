@@ -16,15 +16,20 @@ const MOCK_NOTAS_DADAS = [
 ];
 
 const ColetorHistorico: React.FC = () => {
-    // Estado para controlar qual aba estamos vendo
+    // abas
     const [abaAtiva, setAbaAtiva] = useState<'entregas' | 'recebidas' | 'dadas'>('entregas');
-    
-    // Estado das entregas reais (mantido do seu código original)
+
+    // entregas reais
     const [minhasAceitas, setMinhasAceitas] = useState<any[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
     const [error, setError] = useState<string | null>(null);
 
-    // Busca dados reais de entregas
+    // NOVO: nota geral real do coletor
+    const [notaMedia, setNotaMedia] = useState<number | null>(null);
+    const [totalAvaliacoes, setTotalAvaliacoes] = useState<number | null>(null);
+    const [loadingNota, setLoadingNota] = useState<boolean>(false);
+
+    // Busca histórico de entregas do coletor
     useEffect(() => {
         let mounted = true;
         (async () => {
@@ -34,9 +39,9 @@ const ColetorHistorico: React.FC = () => {
                 const resp = await api.request('/api/coletas/minhas_coletor/');
                 if (!mounted) return;
                 if (!resp.ok) {
-                    // Se der erro (ex: 404 no mock), apenas não mostra nada ou usa array vazio
+
                     console.warn("API de histórico indisponível, usando lista vazia.");
-                    setMinhasAceitas([]); 
+                    setMinhasAceitas([]);
                     setLoading(false);
                     return;
                 }
@@ -50,6 +55,46 @@ const ColetorHistorico: React.FC = () => {
                 if (mounted) setLoading(false);
             }
         })();
+        return () => { mounted = false; };
+    }, []);
+
+    // NOVO: busca perfil do coletor para pegar nota_media e total_avaliacoes
+    useEffect(() => {
+        let mounted = true;
+        (async () => {
+            try {
+                setLoadingNota(true);
+                // Ajuste a URL se o backend usar outro caminho (ex.: /api/coletor/perfil/)
+                const resp = await api.request('/api/coletor/perfil/');
+                if (!mounted) return;
+
+                if (!resp.ok) {
+                    console.warn("Não foi possível obter o perfil do coletor.");
+                    setNotaMedia(null);
+                    setTotalAvaliacoes(null);
+                    return;
+                }
+
+                const data = await resp.json();
+                const nota = typeof data.nota_avaliacao_atual === 'number'
+                    ? data.nota_avaliacao_atual
+                    : (data.nota_avaliacao_atual ? Number(data.nota_avaliacao_atual) : null);
+
+                const total = typeof data.total_avaliacoes === 'number'
+                    ? data.total_avaliacoes
+                    : (data.total_avaliacoes ? Number(data.total_avaliacoes) : null);
+
+                setNotaMedia(!isNaN(Number(nota)) ? Number(nota) : null);
+                setTotalAvaliacoes(!isNaN(Number(total)) ? Number(total) : null);
+            } catch (err) {
+                console.warn("Erro ao buscar nota média do coletor:", err);
+                setNotaMedia(null);
+                setTotalAvaliacoes(null);
+            } finally {
+                if (mounted) setLoadingNota(false);
+            }
+        })();
+
         return () => { mounted = false; };
     }, []);
 
@@ -102,7 +147,7 @@ const ColetorHistorico: React.FC = () => {
                 </button>
             </div>
 
-            {/* CONTEÚDO DA ABA: ENTREGAS */}
+            {/* ABA: ENTREGAS */}
             {abaAtiva === 'entregas' && (
                 <section>
                     {loading && <div style={{ textAlign: 'center', padding: '20px' }}>Carregando histórico...</div>}
@@ -141,15 +186,52 @@ const ColetorHistorico: React.FC = () => {
                 </section>
             )}
 
-            {/* CONTEÚDO DA ABA: AVALIAÇÕES RECEBIDAS */}
+            {/* ABA: AVALIAÇÕES RECEBIDAS */}
             {abaAtiva === 'recebidas' && (
-                <HistoricoAvaliacoes 
-                    titulo="O que as Cooperativas dizem sobre seu serviço" 
-                    avaliacoes={MOCK_NOTAS_RECEBIDAS} 
-                />
+                <section>
+                    {/* BLOCO DA NOTA GERAL REAL */}
+                    <div
+                        style={{
+                            marginBottom: '20px',
+                            padding: '15px 20px',
+                            borderRadius: '10px',
+                            background: '#fff3cd',
+                            border: '1px solid #ffeeba',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'space-between',
+                            gap: '12px',
+                            flexWrap: 'wrap',
+                        }}
+                    >
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                            <FaStar style={{ color: '#ffc107', fontSize: '24px' }} />
+                            <div>
+                                <div style={{ fontWeight: 'bold', color: '#856404' }}>Sua nota média junto às cooperativas</div>
+                                {loadingNota ? (
+                                    <div style={{ color: '#856404' }}>Carregando nota...</div>
+                                ) : notaMedia != null && totalAvaliacoes != null && totalAvaliacoes > 0 ? (
+                                    <div style={{ color: '#856404' }}>
+                                        Nota média: <strong>{notaMedia.toFixed(1)}</strong> ({totalAvaliacoes} avaliação{totalAvaliacoes > 1 ? 'es' : ''})
+                                    </div>
+                                ) : (
+                                    <div style={{ color: '#856404' }}>
+                                        Você ainda não recebeu avaliações de cooperativas.
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* LISTA MOCKADA EMBAIXO */}
+                    <HistoricoAvaliacoes 
+                        titulo="O que as Cooperativas dizem sobre seu serviço" 
+                        avaliacoes={MOCK_NOTAS_RECEBIDAS} 
+                    />
+                </section>
             )}
 
-            {/* CONTEÚDO DA ABA: AVALIAÇÕES DADAS */}
+            {/* ABA: AVALIAÇÕES DADAS */}
             {abaAtiva === 'dadas' && (
                 <HistoricoAvaliacoes 
                     titulo="Avaliações que você fez dos Produtores" 
@@ -159,5 +241,3 @@ const ColetorHistorico: React.FC = () => {
         </div>
     );
 };
-
-export default ColetorHistorico;

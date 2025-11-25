@@ -16,6 +16,9 @@ from .views import (
     # escolha_cooperativa_view
     AvaliarProdutorView,
     ProdutorPerfilView,
+    AvaliarColetorView,
+    EntregasPendentesCooperativaView,
+    ColetorPerfilView,
 )
 
 urlpatterns = [
@@ -50,4 +53,9 @@ urlpatterns = [
     # path('list_cooperativas/', views.escolha_cooperativa_view, name='list-cooperativas'),
     path('avaliar/produtor/', AvaliarProdutorView.as_view(), name='avaliar-produtor'),
     path('produtor/perfil/', ProdutorPerfilView.as_view(), name='produtor-perfil'),
+    path('coletor/perfil/', ColetorPerfilView.as_view(), name='coletor-perfil'),
+    path("avaliar/produtor/", AvaliarProdutorView.as_view(), name="avaliar-produtor"),
+    path("avaliar/coletor/", AvaliarColetorView.as_view(), name="avaliar-coletor"),
+    path('coletas/pendentes_cooperativa/', EntregasPendentesCooperativaView.as_view(),
+         name='coletas-pendentes-cooperativa'),
 ]

@@ -230,3 +230,50 @@ class AvaliacaoProdutorSerializer(serializers.Serializer):
         produtor.total_avaliacoes += 1
         produtor.save()
         return produtor
+
+class AvaliacaoColetorSerializer(serializers.Serializer):
+    coleta_id = serializers.IntegerField(required=True)
+    nota = serializers.DecimalField(
+        max_digits=3, decimal_places=2, min_value=0.0, max_value=5.0, required=True
+    )
+    comentario = serializers.CharField(required=False, allow_blank=True)
+
+    def validate(self, data):
+        # 1. Verifica se a coleta existe
+        try:
+            coleta = SolicitacaoColeta.objects.get(pk=data["coleta_id"])
+        except SolicitacaoColeta.DoesNotExist:
+            raise serializers.ValidationError("Coleta não encontrada.")
+
+        # 2. Verifica se o status permite avaliação
+        if coleta.status not in ["CONCLUIDA", "CONFIRMADA", "COLETADO"]:
+            raise serializers.ValidationError("Esta coleta ainda não pode ser avaliada.")
+
+        # 3. Garante que há coletor associado
+        if coleta.coletor is None:
+            raise serializers.ValidationError(
+                "Esta coleta não possui coletor associado para avaliação."
+            )
+
+        data["coleta_obj"] = coleta
+        return data
+
+    def save(self):
+        coleta = self.validated_data["coleta_obj"]
+        nota_nova = self.validated_data["nota"]
+        coletor = coleta.coletor
+
+        # Lógica de Cálculo da Média Ponderada
+        # (Média Atual * Total Atual + Nova Nota) / (Total Atual + 1)
+        total_atual = coletor.total_avaliacoes
+        media_atual = coletor.nota_avaliacao_atual
+
+        nova_media = ((float(media_atual) * total_atual) + float(nota_nova)) / (
+            total_atual + 1
+        )
+
+        coletor.nota_avaliacao_atual = nova_media
+        coletor.total_avaliacoes += 1
+        coletor.save()
+
+        return coletor

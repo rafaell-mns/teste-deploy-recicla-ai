@@ -1,59 +1,108 @@
-import React, { useState } from 'react';
-import './CooperativaHome.css'; 
+import React, { useState, useEffect } from 'react';
+import './CooperativaHome.css';
 import { FaTruck, FaUser, FaMapMarkerAlt, FaCheckCircle, FaBoxOpen, FaClock, FaClipboardCheck } from 'react-icons/fa';
-import apiFetch from '../apiFetch'; // Importe seu apiFetch
-import ModalAvaliacao from './ModalAvaliacao'; // Importe o Modal
-
-// MOCK DE DADOS (Se já tiver usando API, mantenha sua lógica de useEffect)
-const MOCK_ENTREGAS_PENDENTES = [
-  {
-    id: 101,
-    status: 'AGUARDANDO',
-    horario_chegada: 'Há 5 minutos',
-    coletor: { nome: 'Carlos Oliveira', veiculo: 'Caminhão VUC', telefone: '(86) 99999-1111' },
-    produtor: { nome: 'Mercadinho do João', endereco: 'Rua das Flores, 123' },
-    itens: [{ tipo: 'Papelão', quantidade: '50kg' }]
-  },
-  // ... outros dados
-];
+import apiFetch from '../apiFetch';
+import ModalAvaliacao from './ModalAvaliacao';
 
 const CooperativaHome = () => {
-  const [entregas, setEntregas] = useState(MOCK_ENTREGAS_PENDENTES);
-  
-  // ESTADOS DO MODAL
+  const [entregas, setEntregas] = useState<any[]>([]);
+
   const [modalAberto, setModalAberto] = useState(false);
   const [entregaSelecionada, setEntregaSelecionada] = useState<any>(null);
 
-  // 1. Quando clica no botão "Confirmar Recebimento"
+  // ================================
+  // 1) BUSCAR ENTREGAS REAIS (API)
+  // ================================
+  useEffect(() => {
+    (async () => {
+      try {
+        const resp = await apiFetch.request("/api/coletas/pendentes_cooperativa/");
+        if (!resp || !resp.ok) {
+          console.warn("Falha ao carregar entregas pendentes da cooperativa");
+          setEntregas([]);
+          return;
+        }
+
+        const data = await resp.json();
+        const lista = Array.isArray(data)
+          ? data
+          : (data.results || data.data || []);
+
+        setEntregas(lista);
+      } catch (e) {
+        console.error("Erro ao buscar entregas pendentes:", e);
+        setEntregas([]);
+      }
+    })();
+  }, []);
+
+  // ================================
+  // 2) ABRIR O MODAL
+  // ================================
   const handleClickConfirmar = (entrega: any) => {
     setEntregaSelecionada(entrega);
-    setModalAberto(true); // Abre o modal
+    setModalAberto(true);
   };
 
-  // 2. Quando clica em "Enviar Avaliação" dentro do modal
+  // ================================
+  // 3) CONFIRMAR + AVALIAR COLETOR
+  // ================================
   const handleConfirmarFinal = async (nota: number) => {
     if (!entregaSelecionada) return;
 
-    console.log(`Enviando nota ${nota} para o coletor da entrega ${entregaSelecionada.id}`);
+    const coletaId = entregaSelecionada.id;
+    console.log(`Confirmando e avaliando coleta ${coletaId} com nota ${nota}`);
 
     try {
-      // AQUI VAI A CHAMADA PRO BACKEND (Exemplo):
-      // await apiFetch.request(`/api/coletas/${entregaSelecionada.id}/avaliar/coletor/`, 'POST', { nota });
-      // await apiFetch.request(`/api/coletas/${entregaSelecionada.id}/status/`, 'PATCH', { status: 'CONCLUIDA' });
+      // 1) Atualizar status para CONCLUIDA
+      const respStatus = await apiFetch.request(
+        `/api/coletas/${coletaId}/status/`,
+        'PATCH',
+        { status: 'CONCLUIDA' }
+      );
 
-      alert(`Entrega confirmada! Você avaliou o coletor com nota ${nota}.`);
-      
-      // Remove da lista visualmente
-      setEntregas(prev => prev.filter(item => item.id !== entregaSelecionada.id));
-      
-      // Fecha modal
+      if (!respStatus.ok) {
+        const errData = await respStatus.json().catch(() => null);
+        console.warn("Erro ao atualizar status:", errData);
+        alert("Erro ao confirmar a entrega no sistema.");
+        return;
+      }
+
+      // 2) Avaliar o Coletor
+      const respAvaliacao = await apiFetch.request(
+        '/api/avaliar/coletor/',
+        'POST',
+        {
+          coleta_id: coletaId,
+          nota: nota,
+          comentario: ""
+        }
+      );
+
+      if (!respAvaliacao.ok) {
+        const errData = await respAvaliacao.json().catch(() => null);
+        console.warn("Erro ao salvar avaliação:", errData);
+        alert("Entrega confirmada, mas houve um erro ao salvar a avaliação.");
+      } else {
+        alert(`Entrega confirmada e coletor avaliado com nota ${nota}!`);
+      }
+
+      // 3) Atualizar UI
+      setEntregas(prev => prev.filter(item => item.id !== coletaId));
+
+      // 4) Fechar modal
       setModalAberto(false);
       setEntregaSelecionada(null);
+
     } catch (error) {
+      console.error(error);
       alert("Erro ao confirmar.");
     }
   };
 
+  // ================================
+  // 4) RENDER
+  // ================================
   return (
     <div className="coop-container">
       <div className="coop-header">
@@ -67,28 +116,32 @@ const CooperativaHome = () => {
         <div className="entregas-list">
           {entregas.map((entrega) => (
             <div className="entrega-card" key={entrega.id}>
-              {/* ... (Cabeçalho e Corpo do Card mantidos iguais) ... */}
-              <div className="card-header">
-                 <div className="status-badge"><FaTruck /> Aguardando Confirmação</div>
-                 <div className="time-badge"><FaClock /> {entrega.horario_chegada}</div>
-              </div>
               
+              <div className="card-header">
+                <div className="status-badge"><FaTruck /> Aguardando Confirmação</div>
+                {/* Aqui usamos o horário do backend se existir */}
+                <div className="time-badge"><FaClock /> {entrega.horario_chegada || 'Agora mesmo'}</div>
+              </div>
+
               <div className="card-body">
-                 <div className="info-section">
-                    <h4><FaUser /> Coletor</h4>
-                    <p><strong>{entrega.coletor.nome}</strong></p>
-                    <p>{entrega.coletor.veiculo}</p>
-                 </div>
-                 <div className="info-section">
-                    <h4><FaBoxOpen /> Carga</h4>
-                    <p>{entrega.itens.map(i => i.tipo).join(', ')}</p>
-                 </div>
+                <div className="info-section">
+                  <h4><FaUser /> Coletor</h4>
+                  <p><strong>{entrega.coletor?.nome || "Coletor"}</strong></p>
+                </div>
+
+                <div className="info-section">
+                  <h4><FaBoxOpen /> Carga</h4>
+                  <p>
+                    {entrega.itens?.map((i: any) => i.tipo_residuo || i.tipo).join(', ') ||
+                     "Materiais não especificados"}
+                  </p>
+                </div>
               </div>
 
               <div className="card-actions">
                 <button 
-                  className="btn-confirmar" 
-                  onClick={() => handleClickConfirmar(entrega)} // <--- MUDOU AQUI
+                  className="btn-confirmar"
+                  onClick={() => handleClickConfirmar(entrega)}
                 >
                   <FaCheckCircle /> Confirmar e Avaliar
                 </button>
@@ -98,7 +151,7 @@ const CooperativaHome = () => {
         </div>
       )}
 
-      {/* O MODAL FICA AQUI, FORA DO LOOP */}
+      {/* MODAL */}
       <ModalAvaliacao 
         isOpen={modalAberto}
         titulo="Avaliar Coletor"
