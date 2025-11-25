@@ -6,6 +6,8 @@ from .models import CooperativaMaterial
 import requests
 
 # --- Função de geocoding (retorna dict de lat/lng em vez de Point GIS) ---
+
+
 def geocode_address(rua, numero, bairro, cidade, estado, cep):
     endereco = f"{rua} {numero}, {bairro}, {cidade}, {estado}, {cep}, Brasil"
     url = "https://nominatim.openstreetmap.org/search"
@@ -19,6 +21,7 @@ def geocode_address(rua, numero, bairro, cidade, estado, cep):
     return {"latitude": lat, "longitude": lon}
 
 # --- Serializers de Registro (Atualizados para novos campos) ---
+
 
 class ProdutorRegistrationSerializer(serializers.ModelSerializer):
     class Meta:
@@ -129,7 +132,8 @@ class SolicitacaoColetaCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = SolicitacaoColeta
         fields = ['inicio_coleta', 'fim_coleta', 'observacoes', 'itens']
-        extra_kwargs = {'observacoes': {'required': False, 'allow_null': True, 'allow_blank': True}}
+        extra_kwargs = {'observacoes': {'required': False,
+                                        'allow_null': True, 'allow_blank': True}}
 
     def create(self, validated_data):
         try:
@@ -139,15 +143,18 @@ class SolicitacaoColetaCreateSerializer(serializers.ModelSerializer):
                 ItemColeta.objects.create(solicitacao=solicitacao, **item_data)
             return solicitacao
         except Exception as e:
-            raise serializers.ValidationError({'detail': f'Erro ao criar solicitação: {str(e)}'})
+            raise serializers.ValidationError(
+                {'detail': f'Erro ao criar solicitação: {str(e)}'})
 
 
 # --- Serializer para LISTAR Solicitações ---
 class SolicitacaoColetaListSerializer(serializers.ModelSerializer):
-    coletor_nome = serializers.CharField(source='coletor.nome', read_only=True, allow_null=True)
+    coletor_nome = serializers.CharField(
+        source='coletor.nome', read_only=True, allow_null=True)
     itens_count = serializers.SerializerMethodField()
     tipos = serializers.SerializerMethodField()
-    status_display = serializers.CharField(source='get_status_display', read_only=True)
+    status_display = serializers.CharField(
+        source='get_status_display', read_only=True)
 
     class ProdutorResumoSerializer(serializers.ModelSerializer):
         class Meta:
@@ -182,6 +189,10 @@ class SolicitacaoColetaListSerializer(serializers.ModelSerializer):
 class SolicitacaoColetaDetailSerializer(SolicitacaoColetaListSerializer):
     itens = ItemColetaSerializer(many=True, read_only=True)
 
+    class Meta(SolicitacaoColetaListSerializer.Meta):
+        # Extende os campos do serializer de listagem para incluir 'itens'
+        fields = SolicitacaoColetaListSerializer.Meta.fields + ['itens']
+
 
 class CooperativaMaterialSerializer(serializers.ModelSerializer):
     class Meta:
@@ -192,7 +203,8 @@ class CooperativaMaterialSerializer(serializers.ModelSerializer):
 # --- Serializer para Avaliação ---
 class AvaliacaoProdutorSerializer(serializers.Serializer):
     coleta_id = serializers.IntegerField(required=True)
-    nota = serializers.DecimalField(max_digits=3, decimal_places=2, min_value=0.0, max_value=5.0, required=True)
+    nota = serializers.DecimalField(
+        max_digits=3, decimal_places=2, min_value=0.0, max_value=5.0, required=True)
     comentario = serializers.CharField(required=False, allow_blank=True)
 
     def validate(self, data):
@@ -201,7 +213,8 @@ class AvaliacaoProdutorSerializer(serializers.Serializer):
         except SolicitacaoColeta.DoesNotExist:
             raise serializers.ValidationError("Coleta não encontrada.")
         if coleta.status not in ['CONCLUIDA', 'CONFIRMADA', 'COLETADO']:
-            raise serializers.ValidationError("Esta coleta ainda não pode ser avaliada.")
+            raise serializers.ValidationError(
+                "Esta coleta ainda não pode ser avaliada.")
         data['coleta_obj'] = coleta
         return data
 
@@ -211,7 +224,8 @@ class AvaliacaoProdutorSerializer(serializers.Serializer):
         produtor = coleta.produtor
         total_atual = produtor.total_avaliacoes
         media_atual = produtor.nota_avaliacao_atual
-        nova_media = ((float(media_atual) * total_atual) + float(nota_nova)) / (total_atual + 1)
+        nova_media = ((float(media_atual) * total_atual) +
+                      float(nota_nova)) / (total_atual + 1)
         produtor.nota_avaliacao_atual = nova_media
         produtor.total_avaliacoes += 1
         produtor.save()
