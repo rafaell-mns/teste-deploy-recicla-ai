@@ -1,0 +1,110 @@
+recicla-ai-grupo-6-dev/
+├─ Contrato API - Reciclaí.txt
+├─ manage.py
+├─ package.json
+├─ package-lock.json
+├─ requirements.txt
+├─ .gitignore
+├─ backend/
+│  ├─ README.md
+│  ├─ requirements.txt
+│  ├─ bd_sql_recicla_ai/
+│  └─ src/
+│     ├─ manage.py
+│     ├─ templates/
+│     │  ├─ base.html
+│     │  └─ aplicativo_web/
+│     │     └─ cooperativa_list.html
+│     ├─ reciclaai/
+│     │  ├─ __init__.py
+│     │  ├─ asgi.py
+│     │  ├─ settings.py
+│     │  ├─ urls.py
+│     │  └─ wsgi.py
+│     └─ aplicativo_web/
+│        ├─ __init__.py
+│        ├─ admin.py
+│        ├─ apps.py
+│        ├─ models.py
+│        ├─ permissions.py
+│        ├─ serializers.py
+│        ├─ test_avaliacao.py
+│        ├─ tests.py
+│        ├─ urls.py
+│        ├─ utils.py
+│        ├─ views.py
+│        └─ migrations/
+│           ├─ __init__.py
+│           └─ 0001_initial.py
+├─ .github/
+│  └─ workflows/
+│     └─ django-ci.yml
+├─ frontend/
+│  ├─ package.json
+│  ├─ package-lock.json
+│  ├─ tsconfig.json
+│  ├─ README.md
+│  ├─ readme.txt
+│  ├─ build/
+│  │  ├─ asset-manifest.json
+│  │  ├─ index.html
+│  │  ├─ manifest.json
+│  │  ├─ robots.txt
+│  │  └─ static/
+│  │     └─ js/
+│  │        └─ 453.147260c8.chunk.js
+│  ├─ public/
+│  │  ├─ index.html
+│  │  ├─ manifest.json
+│  │  ├─ robots.txt
+│  │  ├─ favicon.ico
+│  │  ├─ recycle-favicon.svg
+│  │  └─ logo-oficial.png
+│  └─ src/
+│     ├─ index.tsx
+│     ├─ index.css
+│     ├─ App.tsx
+│     ├─ App.css
+│     ├─ apiFetch.ts
+│     ├─ reportWebVitals.ts
+│     ├─ setupTests.ts
+│     ├─ react-app-env.d.ts
+│     ├─ jest.config.js
+│     ├─ logo.svg
+│     ├─ readme.txt
+│     ├─ __tests__/
+│     │  ├─ AvaliacaoColetor.test.tsx
+│     │  ├─ image.png
+│     │  └─ fase red.jpeg
+│     └─ components/
+│        ├─ AuthScreen.tsx
+│        ├─ AuthScreen.css
+│        ├─ AvaliacaoColetor.tsx
+│        ├─ CadastroLoginProdutor.tsx
+│        ├─ CadastroLoginProdutor.css
+│        ├─ ColetorDashboard.tsx
+│        ├─ ColetorDashboard.css
+│        ├─ ColetorHome.tsx
+│        ├─ ColetorHistorico.tsx
+│        ├─ ColetorInventario.tsx
+│        ├─ ColetorInventario.test.tsx
+│        ├─ CooperativaDashboard.tsx
+│        ├─ CooperativaHome.tsx
+│        ├─ CooperativaHome.css
+│        ├─ DashboardLayout.tsx
+│        ├─ DashboardLayout.css
+│        ├─ Dashboard.css
+│        ├─ GerenciarEntregas.tsx
+│        ├─ GerenciarInteresses.tsx
+│        ├─ HistoricoAvaliacoes.tsx
+│        ├─ HomeContent.css
+│        ├─ Interesses.css
+│        ├─ Inventario.css
+│        ├─ ModalAvaliacao.tsx
+│        ├─ ProdutorAvaliacoes.tsx
+│        ├─ ProdutorDashboard.tsx
+│        ├─ ProdutorHome.tsx
+│        ├─ ProdutorSolicitacoes.tsx
+│        ├─ Solicitacoes.css
+│        ├─ setupTests.ts
+│        └─ ColetorInventario.test.tsx
